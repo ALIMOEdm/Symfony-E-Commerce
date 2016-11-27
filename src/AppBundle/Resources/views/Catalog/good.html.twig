@@ -1,0 +1,80 @@
+<div class="actions-wr">
+    <a href="javascript:false" onclick="back_to_catalog();">
+        Назад
+    </a>
+</div>
+{% if app.user %}
+    <div class="actions-wr">
+        <a href="{{ path('good_edit', { 'id': good.id }) }}">
+            Изменить
+        </a>
+    </div>
+{% endif %}
+<table class=" table-condensed">
+    <tbody> 
+        <tr>
+            <th>Краткое наименование</th>
+            <td>{{ good.getShortTitle }}</td>
+        </tr>
+        <tr>
+            <th>Наименование</th>
+            <td>{{ good.getTitle }}</td>
+        </tr>
+        <tr>
+            <th>Описание</th>
+            <td>{{ good.getDescription }}</td>
+        </tr>
+        <tr>
+            <th>Бренд</th>
+            <td>{{ good.getBrand }}</td>
+        </tr>
+        <tr>
+            <th>Артикул</th>
+            <td>{{ good.getArticle }}</td>
+        </tr>
+        <tr>
+            <th>Изображения</th>
+            <td>
+            {% if good.getImages()|length > 0 %}
+                <div class="container">
+                    <div class="row">
+                    {% for image in  good.getImages() %}
+                        <div class="col-lg-3 col-sm-4 col-6">
+                            <a href="#" title="{{ image.getName() }}">
+                                <img src="{{ path('get_good_photo', {'good_id': good.getId(), 'photo_name': image.getName() }) }}" class="thumbnail-img img-responsive">
+                            </a>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            </td>
+        </tr>
+        {% if good.getExtraFields()|length %}
+            {% for field in good.getExtraFields() %}
+               <tr>
+                    <th>
+                        {{ field.getExtraField().getTitle() }}
+                    </th>
+                    <td>
+                        {{ field.getValueOwn() }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        
+    </tbody>
+</table>
+
+<script>
+    {% if good.getId() %}
+        window.good_id = '{{ good.getId() }}';
+    {% endif %}
+    $('.thumbnail-img').click(function(){
+        $('.modal-body').empty();
+        var title = $(this).parent('a').attr("title");
+        $('.modal-title').html(title);
+        $($(this).parents('div').html()).appendTo('.modal-body');
+        $('#Modal').modal({show:true});
+    });
+</script>

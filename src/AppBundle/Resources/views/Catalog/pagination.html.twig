@@ -1,0 +1,19 @@
+<nav id="new_pagination" style="display:none;">
+    <ul class="pagination pagination-sm" style="margin: 0 0;">
+        <li data-value="1" class="paginator {% if paginator.min_range == paginator.current %} disabled {% endif %}">
+            <a class="nolink" href="#" aria-label="Первая"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        <li data-value="{{ paginator.current - 1 }}" class="paginator {% if paginator.min_range == paginator.current %} disabled {% endif %}">
+            <a class="nolink" href="#" aria-label="Предыдущая"><span aria-hidden="true">&larr;</span></a>
+        </li>
+        {% for page in paginator.page_list %}
+            <li data-value="{{ page }}" class="paginator {% if page == paginator.current %} active {% endif %}"><a class="nolink" href="#">{{ page }}<span class="sr-only"></span></a></li>
+        {% endfor %}
+        <li data-value="{{ paginator.current + 1 }}" class="paginator {% if paginator.max_range == paginator.current %} disabled {% endif %}">
+            <a class="nolink" href="#" aria-label="Следущая"><span aria-hidden="true">&rarr;</span></a>
+        </li>
+        <li data-value="{{ paginator.total }}" class="paginator {% if paginator.max_range == paginator.current %} disabled {% endif %}">
+            <a class="nolink" href="#" aria-label="Последняя"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+    </ul>
+</nav>

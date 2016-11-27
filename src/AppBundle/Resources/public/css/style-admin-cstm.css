@@ -1,0 +1,44 @@
+.create-new-entity-action{
+    margin-bottom: 10px;
+}
+.actions-wr{
+    margin-bottom: 10px;
+}
+.form-group-checkboxes{
+    border: none !important;
+    height: auto !important;
+}
+
+.form-group-checkboxes [type=checkbox]+label{
+    margin-right: 10px;
+}
+
+.category-image, .good-image{
+    max-width: 200px;
+}
+
+.action-buttons{
+    margin-bottom: 20px;
+}
+
+.height-auto{
+    height: auto !important;
+}
+
+.navigation-paginator{
+    display: inline-block;
+}
+.navigation-paginator .pagination{
+    margin: 0 !important;
+}
+
+.navigation-paginator-wr{
+    text-align: right;
+}
+.width-100{
+    width: 100% !important;
+}
+
+.row-cstm{
+    margin-bottom: 20px;
+}

@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="container">
+<div class="row">
+    <h1>Список категорий</h1>
+</div>
+<div class="row">
+    <div class="span3">
+        <div class="well">
+            <div>
+                <ul class="nav nav-list">
+                    {% for entity in entities %}
+                        <li>
+                            <label class="tree-toggle nav-header">
+                                <a href="{{ path('catalog_view', { 'id': entity.id }) }}">
+                                    <img height="35px" class="alignleft category-image" style="" src="{{ asset('uploads/images/' ~ entity.id ~ '.' ~ entity.path) }}" /> 
+                                    {{ entity.title }}
+                                </a>
+                            </label>
+                            <ul class="nav nav-list tree">
+                            {% for child in entity.childcategories %}
+                                <li>
+                                    <a href="{{ path('catalog_view', { 'id': child.id }) }}">
+                                        <img height="35px" class="alignleft category-image" style="" src="{{ asset('uploads/images/' ~ child.id ~ '.' ~ child.path) }}" /> 
+                                        {{ child.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<div>
+    {% for field in extra_fields %}
+        <div class="form-group">
+            <label for="input-extra-field-id-{{loop.index}}" class="col-sm-2 control-label">{{ field.getTitle() }}</label>
+            <div class="col-sm-10">
+                <input id="input-extra-field-id-{{loop.index}}" class="form-control" type="text" value="{{ field.getValue() }}" data-role="good_extra_field" data-identity="{{ field.getId() }}" data-xml_name="{{ field.getXmlTitle() }}"/>
+            </div>
+        </div>
+        
+        {#<div class="row">
+            <div class="col-md-2">
+                {{ field.getTitle() }}
+            </div>
+            <div class="col-md-2 col-md-offset-2">
+                <input type="text" value="{{ field.getValue() }}" data-role="good_extra_field" data-identity="{{ field.getId() }}" data-xml_name="{{ field.getXmlTitle() }}"/>
+            </div>
+        </div>#}
+    {% endfor %}
+</div>

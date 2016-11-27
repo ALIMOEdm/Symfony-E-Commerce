@@ -1,0 +1,35 @@
+{{ include('AppBundle:Catalog:pagination.html.twig') }}
+{% set columns = 4 %}
+{% for good in goods %}
+    {% if loop.first or loop.index0 is divisible by(columns) %}
+        <div class="row">
+    {% endif %}
+        <div class="col-sm-3">
+            <div class="thumbnail thumbnail-pointer" onclick="get_good_by_id({{ good.id }});">
+                <h3>{{ good.short_title }}</h3>
+                <p>{{ good.title }}</p>
+                <div style="position: relative; height: 150px; margin: auto; width: 100%; text-align: center; display: table;">
+                    {% if good.getImages()|length > 0 %}
+                        <span style="vertical-align:middle; display: table-cell;">
+                            <img style="max-height: 100%; max-width: 100%;" src="{{ path('get_good_photo', {'good_id': good.getId(), 'photo_name': good.getImages().first.getName() }) }}" alt="{{ good.short_title }}">
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="caption">
+                    <p>
+                        Бренд: {{ good.brand }}<br>
+                        Артикул: {{ good.article }}<br>
+                        {% for ef in good.getExtraFields() %}
+                            {% if ef.getExtraField().showcase > 0 and ef.getValueOwn() %}
+                                {{ ef.getExtraField().title }}: {{ ef.getValueOwn() }}<br>
+                            {% endif %}
+                        {% endfor %}
+                        Рейтинг: {{ good.rating }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% if loop.last or loop.index is divisible by(columns) %}
+        </div>
+    {% endif %}
+{% endfor %}
