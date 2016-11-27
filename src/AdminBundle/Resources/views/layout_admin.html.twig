@@ -1,0 +1,118 @@
+{% extends '::base.html.twig' %}
+{#source#}
+{#http://ironsummitmedia.github.io/startbootstrap-sb-admin-2/pages/index.html#}
+{% block body %}
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {#<a class="navbar-brand" href="{{ path('main_page') }}">Панель администратора</a>#}
+            </div>
+            
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        {#<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>#}
+                        <li><a href="{{path('fos_user_security_logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav in" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                {#<input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>#}
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        {#<li>#}
+                            {#<a href="{{ path('main_page') }}" class=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>#}
+                        {#</li>#}
+                        <li>
+                            <a href="{{path('category')}}"><i class="fa fa-table fa-fw"></i> Категории</a>
+                        </li>
+                        <li>
+                            <a href="{{path('extra_fields')}}"><i class="fa fa-edit fa-fw"></i> Дополнительные поля</a>
+                        </li>
+                        <li>
+                            <a href="{{path('good')}}"><i class="fa fa-edit fa-fw"></i> Товары</a>
+                        </li>
+                        <li>
+                            <a href="{{path('xml_upload')}}"><i class="fa fa-edit fa-fw"></i> Загрузка XML</a>
+                        </li>
+                        <li>
+                            <a href="{{path('xml_download')}}"><i class="fa fa-edit fa-fw"></i> Выгрузка XML</a>
+                        </li>
+                        
+                        {#<li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="blank.html">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>#}
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        
+        <div id="page-wrapper" style="min-height: 354px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{% block page_header %}Dashboard{% endblock %}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var routes = {
+            'good_new' : '{{ path('good_new') }}',
+            'get_category_extra_fields' : '{{ path('get_category_extra_fields') }}'
+        }
+    </script>
+    <script src="{{ asset('bundles/app/js/create_good.js') }}"></script>
+{% endblock %}

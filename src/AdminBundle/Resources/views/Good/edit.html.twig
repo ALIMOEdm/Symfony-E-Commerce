@@ -1,0 +1,152 @@
+{% extends 'AdminBundle::layout_admin.html.twig' %}
+
+{% block page_header -%}
+    Изменение 
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <form class="form-horizontal" action="{{ form_action }}" {{ form_enctype(form) }} method="POST" class="" name="create_good">
+            <div class="action-buttons">
+                {% if task and task=="edit" %}
+                    <input type="submit" class="btn btn-default" name="saveReturn" value="Сохранить" />
+                {%else%}
+                    <input type="submit" class="btn btn-success" name="saveReturn" value="Создать" />
+                {%endif%}
+            </div>
+            {#additional error, related with empy Confidentiality Agreemen and empty prefered intermediary(1) at the conflict check#}
+            {#becose these fields do not have standart validation#}
+            {% if errors is defined and errors %}
+                {% for error in errors %}
+                    <div class="alert alert-danger" role="alert">{{ error.message }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="form-group">
+                {{ form_errors(form.short_title) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.short_title) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.short_title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.title) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.title) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.xml_title) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.xml_title) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.xml_title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.description) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.description) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.description) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.brand) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.brand) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.brand) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.article) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.article) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.article) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.article) }}
+                <label for="" class="col-sm-2 control-label">
+                    <button class="btn btn-primary" type="button" data-role="good-choose-photo">Выбрать фотографии</button>
+                </label>
+                <div class="col-sm-10 height-auto">
+                    <div class="photo_gallery">
+                        {% if good.getImages()|length > 0 %}
+                            {% for image in  good.getImages() %}
+                                <div class="col-xs-6 col-md-3 good-photo-wrapper">
+                                    <div class="image_print_actions">
+                                        <div class="image_print_actions-wrapper">
+                                            <div class="action-btn image_print_actions_delete image_print_actions_act" data-remove_url="{{ path('remove_good_photo', {'good_id': good.getId(), 'photo_name': image.getName() }) }}" data-photo_title="{{ image.getName() }}" data-role="remove-fish-photo" data-good_id="{{ good.getId() }}">
+                                                <i action="delete" class="fa fa-fw fa-times fa-lg"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="thumbnail">
+                                        <img class="good-image" src="{{ path('get_good_photo', {'good_id': good.getId(), 'photo_name': image.getName() }) }}" alt="">
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div style="display: none" data-role="input_file_wrapper">
+                    {{ form_errors(form.images_stock) }}
+                    {{ form_widget(form.images_stock, {'full_name': form.images_stock.vars.full_name ~ '[]' }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.category) }}
+                <label for="" class="col-sm-2 control-label">{{ form_label(form.category) }}</label>
+                <div class="col-sm-10">
+                    {{ form_widget(form.category) }}
+                </div>
+            </div>
+
+            <div style="display: none">
+                {{ form_widget(form.extra_fields_cache) }}
+            </div>
+
+            <div data-role="extra_fields_wrapper"></div>
+
+            <div style="display: none">
+                {{ form_rest(form) }}
+            </div>
+        </form>
+    </div>
+    <ul class="record_actions">
+        {% if delete_form %}
+        <li>
+            {{ form_start(delete_form) }}
+                {{ form_widget(delete_form.submit, { 'label': 'Удалить' }, { 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}
+            {{ form_end(delete_form) }}
+        </li>
+        {% endif %}
+        <li>
+            <a href="{{ path('good') }}">
+                Назад к списку
+            </a>
+        </li>
+    </ul>
+    <script>
+        {% if good.getId() %}
+            window.good_id = '{{ good.getId() }}';
+        {% endif %}
+    </script>
+    <script type="o/tpl" id="photoTemplate">
+        <div class="col-xs-6 col-md-3 good-photo-wrapper">
+            <div class="image_print_actions">
+                <div class="image_print_actions-wrapper">
+                    <div class="action-btn image_print_actions_delete image_print_actions_act" data-photo_title="<%photo_title=%>" data-role="remove-fish-photo" data-good_id="<%good_id=%>">
+                        <i action="delete" class="fa fa-fw fa-times fa-lg"></i>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="thumbnail">
+                <img class="good-image" src="<%src=%>" alt="">
+            </a>
+        </div>
+    </script>
+{% endblock %}

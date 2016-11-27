@@ -1,0 +1,66 @@
+{% extends 'AdminBundle::layout_admin.html.twig' %}
+
+{% block page_header -%}
+    Категория {{ entity.title }}
+{% endblock %}
+
+{% block content -%}
+
+    <table class="record_properties table table-striped table-bordered table-hover dataTable no-footer">
+        <tbody>
+            <tr>
+                <th>Наименование</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Наименование для xml</th>
+                <td>{{ entity.xmltitle }}</td>
+            </tr>
+            <tr>
+                <th>Контент</th>
+                <td>{{ entity.content }}</td>
+            </tr>
+            <tr>
+                <th>Изображение</th>
+                <td>
+{#                    {{ entity.path }}#}
+                    <img class="alignleft category-image" style="" src="{{ asset('uploads/images/' ~ entity.id ~ '.' ~ entity.path) }}" />
+                </td>
+            </tr>
+            <tr>
+                <th>Создано</th>
+                <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Последнее изменение</th>
+                <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Родительская категория</th>
+                <td>
+                    {% if entity.getParentCategoryEntity() %}
+                        {{ entity.getParentCategoryEntity().getTitle() }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="actions-wr">
+        <a href="{{ path('category') }}">
+            Назад к списку
+        </a>
+    </div>
+    <div class="actions-wr">
+        <a href="{{ path('category_edit', { 'id': entity.id }) }}">
+            Изменить
+        </a>
+    </div> 
+    <div class="actions-wr">
+        {{ form_start(delete_form) }}
+            {{ form_widget(delete_form.submit, { 'label': 'Удалить' }, { 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}
+        {{ form_end(delete_form) }}
+    </div>
+{% endblock %}

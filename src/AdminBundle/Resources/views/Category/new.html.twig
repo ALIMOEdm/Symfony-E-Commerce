@@ -1,0 +1,67 @@
+{% extends 'AdminBundle::layout_admin.html.twig' %}
+
+{% block page_header -%}
+    Создание категории
+{% endblock %}
+
+{% block content -%}
+    {{ form_start(form) }}
+    <div class="action-buttons">
+        {{ form_row(form.children["submit"]) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.title) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.title) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_errors(form.xml_title) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.xml_title) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.xml_title) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_errors(form.content) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.content) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.content) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_errors(form.parent_category) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.parent_category) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.parent_category) }}
+        </div>
+    </div>
+    <div class="form-group form-group-checkboxes">
+        {{ form_errors(form.extra_fields) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.extra_fields) }}</label>
+
+        <div class="col-sm-10">
+            {{ form_widget(form.extra_fields) }}
+        </div>
+    </div>
+    <script>
+        $('<br />').insertAfter('[data-role="category-checkbox-group"]  [type=checkbox]+label');
+    </script>
+
+    <div class="form-group">
+        {{ form_errors(form.file) }}
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.file) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(form.file) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    <div class="actions-wr">
+        <a href="{{ path('category') }}">
+            Назад к списку
+        </a>
+    </div>
+{% endblock %}

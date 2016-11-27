@@ -1,5 +1,8 @@
-app:
-    resource: "@AppBundle/Controller/"
+admin:
+    resource: "@AdminBundle/Controller/"
+    type:     annotation
+frontend:
+    resource: "@FrontendBundle/Controller/"
     type:     annotation
 
 fos_user:

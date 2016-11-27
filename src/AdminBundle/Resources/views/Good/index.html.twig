@@ -1,0 +1,125 @@
+{% extends 'AdminBundle::layout_admin.html.twig' %}
+
+{% block page_header -%}
+    Список товаров
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="dataTable_wrapper">
+                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <div class="row row-cstm">
+                        <div class="col-md-4">
+                            <div class="create-new-entity-action">
+                                <a href="{{ path('good_new') }}">
+                                    Создать товар
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+{#                                <input type="text" class="form-control width-100" id="" placeholder="">#}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="navigation-paginator-wr">
+                                <div class="navigation navigation-paginator">
+                                    {{ knp_pagination_render(pagination) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="records_list table table-striped table-bordered table-hover dataTable no-footer">
+                                <thead>
+                                    <tr>
+                                        <th>Краткое наименование</th>
+                                        <th>Наименование</th>
+                                        <th>Наименование для xml</th>
+                                        <th>Описание</th>
+                                        <th>Бренд</th>
+                                        <th>Артикул</th>
+                                        <th>Категория</th>
+{#                                        <th>Дополнительные поля</th>#}
+                                        <th>Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for good in pagination %}
+                                        <tr>
+                                            <td>
+                                                {{ good.getShortTitle() }}
+                                            </td>
+                                            <td>
+                                                {{ good.getTitle() }}
+                                            </td>
+                                            <td>
+                                                {{ good.getXmlTitle() }}
+                                            </td>
+                                            <td>
+                                                {{ good.getDescription() }}
+                                            </td>
+                                            <td>
+                                                {{ good.getBrand() }}
+                                            </td>
+                                            <td>
+                                                {{ good.getArticle() }}
+                                            </td>
+                                            <td>
+                                                {% if good.getCategory() is null %}
+                                                    без категории
+                                                {% else %}
+                                                    {{ good.getCategory().getTitle() }}
+                                                {% endif %}
+                                            </td>
+                                            {#<td>
+                                                {% if good.getExtraFields()|length %}
+                                                    <div class="panel panel-primary">
+                                                        {% for field in good.getExtraFields() %}
+                                                        <div class="panel-heading">
+                                                            {{ field.getExtraField().getTitle() }}
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            {{ field.getValueOwn() }}
+                                                        </div>
+                                                        
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </td>#}
+                                            <td>
+                                                <a href="{{ path('good_show', { 'id': good.id }) }}">Подробнее</a>
+                                                <a href="{{ path('good_edit', { 'id': good.id }) }}">Изменить</a> 
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="create-new-entity-action">
+                                            <a href="{{ path('good_new') }}">
+                                                Создать товар
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <div class="navigation-paginator-wr">
+                                            <div class="navigation navigation-paginator">
+                                                {{ knp_pagination_render(pagination) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

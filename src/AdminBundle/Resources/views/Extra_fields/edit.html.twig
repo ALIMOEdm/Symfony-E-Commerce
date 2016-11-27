@@ -1,0 +1,63 @@
+{% extends 'AdminBundle::layout_admin.html.twig' %}
+
+{% block page_header -%}
+    Изменение {{ entity.title }}
+{% endblock %}
+
+{% block content -%}
+
+{#    {{ form(edit_form) }}#}
+    {{ form_start(edit_form) }}
+    <div class="action-buttons">
+        {{ form_widget(edit_form.submit, { 'label': 'Сохранить' }) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form_errors(edit_form.title) }}
+        <label for="" class="col-sm-2 control-label">{{ form_label(edit_form.title) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.title) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_errors(edit_form.xml_title) }}
+        <label for="" class="col-sm-2 control-label">{{ form_label(edit_form.xml_title) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.xml_title) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_errors(edit_form.type) }}
+        <label for="" class="col-sm-2 control-label">{{ form_label(edit_form.type) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.type) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_errors(edit_form.show_it) }}
+        <label for="" class="col-sm-2 control-label">{{ form_label(edit_form.show_it) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.show_it) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_errors(edit_form.showcase) }}
+        <label for="" class="col-sm-2 control-label">{{ form_label(edit_form.showcase) }}</label>
+        <div class="col-sm-10">
+            {{ form_widget(edit_form.showcase) }}
+        </div>
+    </div>
+    {{ form_end(edit_form) }}
+    <div class="actions-wr">
+        <a href="{{ path('extra_fields') }}">
+            Назад к списку
+        </a>
+    </div>
+    <div class="actions-wr">
+        {{ form_start(delete_form) }}
+            {{ form_widget(delete_form.submit, { 'label': 'Удалить' }, { 'attr': {'class': 'btn btn-danger', 'type': 'button'} }) }}
+        {{ form_end(delete_form) }}
+    </div>
+{% endblock %}
