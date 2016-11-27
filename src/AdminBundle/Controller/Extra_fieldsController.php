@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -77,13 +78,13 @@ class Extra_fieldsController extends Controller
      */
     private function createCreateForm(Extra_fields $entity)
     {
-        $form = $this->createForm(new Extra_fieldsType(), $entity, array(
+        $form = $this->createForm(Extra_fieldsType::class, $entity, array(
             'action' => $this->generateUrl('extra_fields_create'),
             'method' => 'POST',
             'attr' => array('class'=>'form-horizontal'),
         ));
 
-        $form->add('submit', 'submit', array(
+        $form->add('submit', SubmitType::class, array(
             'label' => 'Create',
             'attr' => array('class' => 'btn btn-success'),
             ));
@@ -170,13 +171,13 @@ class Extra_fieldsController extends Controller
     */
     private function createEditForm(Extra_fields $entity)
     {
-        $form = $this->createForm(new Extra_fieldsType(), $entity, array(
+        $form = $this->createForm(Extra_fieldsType::class, $entity, array(
             'action' => $this->generateUrl('extra_fields_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'attr' => array('class'=>'form-horizontal'),
         ));
 
-        $form->add('submit', 'submit', array(
+        $form->add('submit', SubmitType::class, array(
             'attr' => array('class' => 'btn btn-default'),
             'label' => 'Update'
             ));
@@ -256,7 +257,7 @@ class Extra_fieldsController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('extra_fields_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr' => array('class' => 'btn btn-danger')
                 ))

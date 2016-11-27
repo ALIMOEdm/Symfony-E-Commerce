@@ -3,7 +3,11 @@
 namespace AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Tests\Extension\Core\Type\CheckboxTypeTest;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class Extra_fieldsType extends AbstractType
@@ -15,15 +19,15 @@ class Extra_fieldsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array(
+            ->add('title', TextType::class, array(
                 'label' => 'Наименование',
                 'attr' => array('class' => 'form-control'),
             ))
-            ->add('xml_title', 'text', array(
+            ->add('xml_title', TextType::class, array(
                 'label' => 'Наименование для xml',
                 'attr' => array('class' => 'form-control'),
             ))
-            ->add('type', 'choice', array(
+            ->add('type', ChoiceType::class, array(
                 'label' => 'Тип',
                 'attr' => array('class' => 'form-control'),
                 'choices'  => array(
@@ -32,11 +36,11 @@ class Extra_fieldsType extends AbstractType
                     )
                 )
             )
-            ->add('show_it', 'checkbox', array(
+            ->add('show_it', CheckboxType::class, array(
                 'label' => 'Отображать в фильтре',
                 'required' => false,
             ))
-            ->add('showcase', 'checkbox', array(
+            ->add('showcase', CheckboxType::class, array(
                 'label' => 'Отображать в витрине',
                 'required' => false,
             ))

@@ -3,7 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/admin/css/style.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/admin/css/style-admin.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/admin/css/style-admin-cstm.css') }}"/>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>

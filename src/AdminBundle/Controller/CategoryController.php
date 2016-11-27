@@ -2,6 +2,7 @@
 
 namespace AdminBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -80,13 +81,13 @@ class CategoryController extends Controller
      */
     private function createCreateForm(Category $entity)
     {
-        $form = $this->createForm(new CategoryType(), $entity, array(
+        $form = $this->createForm(CategoryType::class, $entity, array(
             'action' => $this->generateUrl('category_create'),
             'method' => 'POST',
             'attr' => array('class'=>'form-horizontal'),
         ));
 
-        $form->add('submit', 'submit', array(
+        $form->add('submit', SubmitType::class, array(
             'label' => 'Create',
             'attr' => array('class' => 'btn btn-success'),
             ));
@@ -189,7 +190,7 @@ class CategoryController extends Controller
             'attr' => array('class'=>'form-horizontal'),
         ));
 
-        $form->add('submit', 'submit', array(
+        $form->add('submit', SubmitType::class, array(
             'attr' => array('class' => 'btn btn-default'),
             'label' => 'Изменить'
             ));
@@ -300,7 +301,7 @@ class CategoryController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('category_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Удалить',
                 'attr' => array('class' => 'btn btn-danger')
                 ))

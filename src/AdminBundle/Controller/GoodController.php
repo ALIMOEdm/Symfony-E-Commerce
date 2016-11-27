@@ -9,6 +9,7 @@ use AdminBundle\Util\Files\DirectoryUtil;
 use AdminBundle\Util\Files\ImageNameUtill;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,7 +83,7 @@ class GoodController extends Controller{
             $form_action = $this->generateUrl('good_edit', array('id' => $good->getId()));
         }
 
-        $form = $this->createForm(new GoodsType(), $good);
+        $form = $this->createForm(GoodsType::class, $good);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $good = $form->getData();
@@ -318,7 +319,7 @@ class GoodController extends Controller{
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('good_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr' => array('class' => 'btn btn-danger')
                 ))
